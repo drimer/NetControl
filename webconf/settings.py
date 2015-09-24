@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'NetControl.urls'
+ROOT_URLCONF = 'webconf.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'NetControl.wsgi.application'
+WSGI_APPLICATION = 'webconf.wsgi.application'
 
 
 # Database
