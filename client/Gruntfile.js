@@ -23,11 +23,22 @@ module.exports = function (grunt) {
                 ],
                 dest: "app/app.css"
             }
+        },
+
+        less: {
+            development: {
+                files: {
+                    "app/app.css": [
+                        "src/*.less"
+                    ]
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
-    grunt.registerTask('default', ['bower', 'concat']);
+    grunt.registerTask('default', ['bower', 'less']);
 };
