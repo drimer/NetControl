@@ -16,12 +16,10 @@ module.exports = function (grunt) {
             }
         },
 
-        concat: {
-            web: {
-                src: [
-                    "src/*.css"
-                ],
-                dest: "app/app.css"
+        watch: {
+            css: {
+                files: ['src/*.less'],
+                tasks: ['less']
             }
         },
 
@@ -37,8 +35,8 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-bower-task');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['bower', 'less']);
+    grunt.registerTask('default', ['watch', 'less', 'bower']);
 };
