@@ -7,17 +7,27 @@ module.exports = function (grunt) {
         bower: {
             install: {
                 options: {
-                    targetDir: './app/lib',
+                    targetDir: './lib',
                     install: true,
                     cleanTargetDir: false,
                     cleanBowerDir: true,
                     bowerOptions: {}
                 }
             }
+        },
+
+        concat: {
+            web: {
+                src: [
+                    "src/*.css"
+                ],
+                dest: "app/app.css"
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-bower-task');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
-    grunt.registerTask('default', ['']);
+    grunt.registerTask('default', ['bower', 'concat']);
 };

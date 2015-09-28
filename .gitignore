@@ -55,3 +55,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Npm
+node_modules/
+
+# PyCharm
+.idea/
