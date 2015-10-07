@@ -24,6 +24,21 @@
 <!-- JS libraries -->
 <script src="{% static 'lib/jquery/jquery.js' %}"></script>
 <script src="{% static 'lib/bootstrap/bootstrap.js' %}"></script>
+<script src="{% static 'lib/underscore/underscore.js' %}"></script>
+<script src="{% static 'lib/backbone/backbone.js' %}"></script>
+
+<!-- Custom JS code -->
+<!-- Set up JS templates in memory -->
+<script type="text/javascript">
+    var Templates = {};
+    {% for name, template in js_templates %}
+        Templates["{{ name }}"] = "{{ template|escapejs }}";
+    {% endfor %}
+</script>
+
+<!-- Include JS code (needs to be done after the templates loading) -->
+<script type="text/javascript" src="{% static 'app/app.js' %}"></script>
+<!-- End of customb code -->
 
 </body>
 </html>
