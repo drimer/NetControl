@@ -1,11 +1,9 @@
 from json import dumps
-import os
-from django.core.urlresolvers import reverse
 
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
-from webconf import settings
 
 
 def home(request):
