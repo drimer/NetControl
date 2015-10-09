@@ -1,3 +1,5 @@
+from bs4 import BeautifulSoup
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -14,3 +16,12 @@ class HomeViewTest(TestCase):
     def test_home_view_uses_correct_snippets(self):
         response = self.client.get(reverse(home), follow=True)
         self.assertTemplateUsed(response, 'snippets/header.html')
+
+    def test_home_view_shows_loading_message_initially(self):
+        response = self.client.get(reverse(home), follow=True)
+
+        bs = BeautifulSoup(response.content)
+        machine_grid = bs.find(attrs={'id': 'machine-grid'})
+        loading_text_elems = machine_grid.find_all(attrs={'class': 'loading-text'})
+
+        self.assertEqual(1, len(loading_text_elems))

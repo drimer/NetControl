@@ -1,9 +1,12 @@
 from json import dumps
+import itertools
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
+
+from netcontrol.network import get_ifaces, get_connected, DeviceEncoder
 
 
 def home(request):
@@ -22,13 +25,9 @@ class MachinesView(View):
     def json(self, *args, **kwargs):
         del args, kwargs
 
-        machines = (
-            {'ip_address': '192.168.1.100',
-             'mac_address': 'AA:AA:AA:AA:AA:AA'},
-            {'ip_address': '192.168.1.101',
-             'mac_address': 'BB:BB:BB:BB:BB:BB'},
-        )
-        return HttpResponse(dumps(machines), content_type='application/json')
+        machines_lists = [get_connected(iface) for iface in get_ifaces()]
+        machines = list(itertools.chain(*machines_lists))
+        return HttpResponse(dumps(machines, cls=DeviceEncoder), content_type='application/json')
 
     def get(self, *args, **kwargs):
         del kwargs
