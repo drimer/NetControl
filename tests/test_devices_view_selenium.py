@@ -18,19 +18,19 @@ MOCK_DEVICES = [
 ]
 
 
-def get_connected_mock(iface):
+def _get_connected_mock(iface):
     del iface
 
     return MOCK_DEVICES
 
 
-def get_ifaces_mock():
+def _get_ifaces_mock():
     return ['eth0']
 
 
 class HomeViewSeleniumTest(StaticLiveServerTestCase):
-    @mock.patch('webapp.views.get_connected', get_connected_mock)
-    @mock.patch('webapp.views.get_ifaces', get_ifaces_mock)
+    @mock.patch('webapp.views.get_connected', _get_connected_mock)
+    @mock.patch('webapp.views.get_ifaces', _get_ifaces_mock)
     def test_that_home_view_shows_devices_grid(self):
         url = '%s%s' % (self.live_server_url, reverse('devices'))
         driver = WebDriver()
