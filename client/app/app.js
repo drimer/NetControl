@@ -1,7 +1,7 @@
-var Machine = Backbone.Model.extend({});
+var Device = Backbone.Model.extend({});
 
-var MachineView = Backbone.View.extend({
-    template: _.template(Templates['machine_grid_element.html']),
+var DeviceView = Backbone.View.extend({
+    template: _.template(Templates['device_grid_element.html']),
 
     render: function () {
         var attributes = this.model.toJSON();
@@ -9,20 +9,20 @@ var MachineView = Backbone.View.extend({
     }
 });
 
-var MachineCollection = Backbone.Collection.extend({
-    model: Machine,
-    url: '/machines'
+var DeviceCollection = Backbone.Collection.extend({
+    model: Device,
+    url: '/devices'
 });
 
-var MachineCollectionView = Backbone.View.extend({
-    el: '#machine-grid',
+var DeviceCollectionView = Backbone.View.extend({
+    el: '#device-grid',
 
     initialize: function () {
         this.collection.on('fetch', this.addAll, this);
     },
 
     addAll: function () {
-        this.collection.forEach(this.addMachine, this);
+        this.collection.forEach(this.addDevice, this);
     },
 
     clean_up: function () {
@@ -34,19 +34,19 @@ var MachineCollectionView = Backbone.View.extend({
         this.addAll();
     },
 
-    addMachine: function (machine) {
-        var machineView = new MachineView({model: machine});
-        machineView.render();
-        this.$el.append(machineView.el);
+    addDevice: function (device) {
+        var deviceView = new DeviceView({model: device});
+        deviceView.render();
+        this.$el.append(deviceView.el);
     }
 });
 
 $(document).ready(function () {
-    var machineCollection = new MachineCollection();
-    machineCollection.fetch().done(function () {
-        var machineCollectionView = new MachineCollectionView({
-            collection: machineCollection
+    var deviceCollection = new DeviceCollection();
+    deviceCollection.fetch().done(function () {
+        var deviceCollectionView = new DeviceCollectionView({
+            collection: deviceCollection
         });
-        machineCollectionView.render();
+        deviceCollectionView.render();
     });
 });

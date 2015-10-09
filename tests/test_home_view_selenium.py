@@ -31,19 +31,19 @@ def get_ifaces_mock():
 class HomeViewSeleniumTest(StaticLiveServerTestCase):
     @mock.patch('webapp.views.get_connected', get_connected_mock)
     @mock.patch('webapp.views.get_ifaces', get_ifaces_mock)
-    def test_that_home_view_shows_machines_grid(self):
-        url = '%s%s' % (self.live_server_url, reverse('machines'))
+    def test_that_home_view_shows_devices_grid(self):
+        url = '%s%s' % (self.live_server_url, reverse('devices'))
         driver = WebDriver()
         driver.get(url)
         time.sleep(1)
 
         waiter = WebDriverWait(driver, WEBDRIVER_MAX_TIMEOUT)
-        waiter.until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'machine')))
+        waiter.until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'device')))
 
-        machine_grid = driver.find_element_by_id('machine-grid')
-        machines = machine_grid.find_elements_by_class_name('machine')
-        self.assertEqual(len(MOCK_DEVICES), len(machines))
+        device_grid = driver.find_element_by_id('device-grid')
+        devices = device_grid.find_elements_by_class_name('device')
+        self.assertEqual(len(MOCK_DEVICES), len(devices))
 
         for device in MOCK_DEVICES:
-            self.assertIn(device.ip_address, machine_grid.text)
-            self.assertIn(device.mac_address, machine_grid.text)
+            self.assertIn(device.ip_address, device_grid.text)
+            self.assertIn(device.mac_address, device_grid.text)

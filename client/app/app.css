@@ -2,21 +2,21 @@ body {
   padding-top: 50px;
 }
 
-.navbar-container {
-  width: 100%;
-}
-
-.machine-icon {
+.device-icon {
   width: 150px;
   height: 150px;
 }
-.machine-info-row {
+.device-info-row {
   width: 100%;
 }
-.machine-info-label {
+.device-info-label {
   padding-right: 10px;
   font-weight: bold;
 }
 .loading-text {
   font-size: 14pt;
+}
+
+.navbar-container {
+  width: 100%;
 }

@@ -10,10 +10,10 @@ from netcontrol.network import get_ifaces, get_connected, DeviceEncoder
 
 
 def home(request):
-    return HttpResponseRedirect(reverse('machines'))
+    return HttpResponseRedirect(reverse('devices'))
 
 
-class MachinesView(View):
+class DevicesView(View):
     def dispatch(self, *args, **kwargs):
         request = args[0]
 
@@ -25,9 +25,9 @@ class MachinesView(View):
     def json(self, *args, **kwargs):
         del args, kwargs
 
-        machines_lists = [get_connected(iface) for iface in get_ifaces()]
-        machines = list(itertools.chain(*machines_lists))
-        return HttpResponse(dumps(machines, cls=DeviceEncoder), content_type='application/json')
+        devices_lists = [get_connected(iface) for iface in get_ifaces()]
+        devices = list(itertools.chain(*devices_lists))
+        return HttpResponse(dumps(devices, cls=DeviceEncoder), content_type='application/json')
 
     def get(self, *args, **kwargs):
         del kwargs
