@@ -35,7 +35,6 @@ class HomeViewSeleniumTest(StaticLiveServerTestCase):
         url = '%s%s' % (self.live_server_url, reverse('devices'))
         driver = WebDriver()
         driver.get(url)
-        time.sleep(1)
 
         waiter = WebDriverWait(driver, WEBDRIVER_MAX_TIMEOUT)
         waiter.until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'device')))
