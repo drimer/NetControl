@@ -11,11 +11,11 @@ REQS_FILE = os.path.join(PROJECT_DIR, 'requirements.txt')
 def setup():
     with open(DEPS_FILE, 'r') as f:
         for package in f:
-            subprocess.check_call(('apt-get', 'install', '-y', package))
+            subprocess.check_call(('apt-get', 'install', '-y', package.strip()))
 
     with open(REQS_FILE, 'r') as f:
         for requirement in f:
-            subprocess.check_call(('pip', 'install', requirement))
+            subprocess.check_call(('pip', 'install', requirement.strip()))
 
 
 if __name__ == '__main__':
