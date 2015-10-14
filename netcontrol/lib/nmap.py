@@ -287,11 +287,18 @@ class PortScanner(object):
         
         for dhost in  dom.getElementsByTagName('host'):
             # host ip
-            host = dhost.getElementsByTagName('address')[0].getAttributeNode('addr').value
+            host_elem = next((ad for ad in dhost.getElementsByTagName('address')
+                         if ad.getAttributeNode('addrtype').value in ('ipv4', 'ipv6')))
+            host = host_elem.getAttributeNode('addr').value
+            
+            mac_elem = next((ad for ad in dhost.getElementsByTagName('address')
+                             if ad.getAttributeNode('addrtype').value == 'mac'), None)
+            mac_addr = mac_elem.getAttributeNode('addr').value if mac_elem else ''
+
             hostname = ''
             for dhostname in dhost.getElementsByTagName('hostname'):
                 hostname = dhostname.getAttributeNode('name').value
-            scan_result['scan'][host] = PortScannerHostDict({'hostname': hostname})
+            scan_result['scan'][host] = PortScannerHostDict({'hostname': hostname, 'macaddr': mac_addr})
             for dstatus in dhost.getElementsByTagName('status'):
                 # status : up...
                 scan_result['scan'][host]['status'] = {'state': dstatus.getAttributeNode('state').value,
@@ -728,8 +735,13 @@ class PortScannerHostDict(dict):
 
         return self['sctp'][port]
 
+    def mac(self):
+        """
+        return MAC address
+        """
+        return self['macaddr']
 
-    
+
 ############################################################################
 
 

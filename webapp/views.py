@@ -1,12 +1,12 @@
 from json import dumps
-import itertools
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
 
-from netcontrol.network import get_ifaces, get_connected, DeviceEncoder
+from netcontrol.api import get_devices
+from netcontrol.network import DeviceEncoder
 
 
 def home(request):
@@ -25,8 +25,7 @@ class DevicesView(View):
     def json(self, *args, **kwargs):
         del args, kwargs
 
-        devices_lists = [get_connected(iface) for iface in get_ifaces()]
-        devices = list(itertools.chain(*devices_lists))
+        devices = get_devices()
         return HttpResponse(dumps(devices, cls=DeviceEncoder), content_type='application/json')
 
     def get(self, *args, **kwargs):

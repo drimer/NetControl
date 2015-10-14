@@ -1,5 +1,3 @@
-import time
-
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
 import mock
@@ -18,9 +16,7 @@ MOCK_DEVICES = [
 ]
 
 
-def _get_connected_mock(iface):
-    del iface
-
+def _get_devices_mock():
     return MOCK_DEVICES
 
 
@@ -29,8 +25,7 @@ def _get_ifaces_mock():
 
 
 class HomeViewSeleniumTest(StaticLiveServerTestCase):
-    @mock.patch('webapp.views.get_connected', _get_connected_mock)
-    @mock.patch('webapp.views.get_ifaces', _get_ifaces_mock)
+    @mock.patch('webapp.views.get_devices', _get_devices_mock)
     def test_that_home_view_shows_devices_grid(self):
         url = '%s%s' % (self.live_server_url, reverse('devices'))
         driver = WebDriver()
