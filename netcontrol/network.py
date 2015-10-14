@@ -31,6 +31,8 @@ class Device(object):
 
 
 class DeviceEncoder(JSONEncoder):
+    # pylint:disable=E0202
+
     def default(self, obj):
         return {
             'ip_address': obj.ip_address,
@@ -40,6 +42,8 @@ class DeviceEncoder(JSONEncoder):
 
 @singleton
 class Network(object):
+    # pylint:disable=W0201,W0212
+
     @classmethod
     def setup_class(cls):
         mt_manager = Manager()

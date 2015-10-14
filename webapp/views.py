@@ -10,6 +10,8 @@ from netcontrol.network import DeviceEncoder
 
 
 def home(request):
+    del request
+
     return HttpResponseRedirect(reverse('devices'))
 
 

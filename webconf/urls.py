@@ -21,5 +21,5 @@ from webapp.views import home, DevicesView
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home),
-    url(r'^devices/$', DevicesView.as_view(), name='devices'),
+    url(r'^devices/$', DevicesView.as_view(), name='devices'),  # pylint:disable=E1120
 ]

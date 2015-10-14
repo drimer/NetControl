@@ -2,6 +2,7 @@
 import os
 import sys
 
+# pylint:disable=W0403
 from netcontrol.network import Network
 
 if __name__ == "__main__":

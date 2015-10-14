@@ -1,13 +1,12 @@
-from functools import wraps
-
-
 def singleton(klass):
-    class wrapper(klass):
+    class Wrapper(klass):
         _instance = None
 
         def __new__(cls, *args, **kwargs):
+            # pylint:disable=E1002
+
             if not cls._instance:
-                cls._instance = super(wrapper, cls).__new__(cls, *args,
+                cls._instance = super(Wrapper, cls).__new__(cls, *args,
                                                             **kwargs)
 
                 setup_attrs_func = getattr(cls, 'setup_attributes', None)
@@ -16,4 +15,4 @@ def singleton(klass):
 
             return cls._instance
 
-    return wrapper
+    return Wrapper
