@@ -45,7 +45,7 @@ class Network(object):
     # pylint:disable=W0201,W0212
 
     @classmethod
-    def setup_class(cls):
+    def setup_attributes(cls):
         mt_manager = Manager()
         cls._instance._devices = mt_manager.list()
         cls._instance.scanner_thread = None
